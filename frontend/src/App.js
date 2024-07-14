@@ -12,7 +12,7 @@ function App() {
     const submit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8001/api/newshort', { link });//posting the input link to api/newshort using axios
+            const response = await axios.post('http://localhost:8001/url/api/newshort', { link });//posting the input link to api/newshort using axios
             setshortlink(response.data.shortlink);//creating and setting the shortlink
             seterr('');//no error
         } catch (error) {
