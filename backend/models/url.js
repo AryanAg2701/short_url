@@ -1,23 +1,24 @@
-const mongoose=require('mongoose')//importing mongoose
+const mongoose = require('mongoose');
 
-//creating schema of mongoose for url
-const urlschema=new mongoose.Schema(
-    {
-    //schema for shortid of url
-    shortId:{
-        type:String,
-        required:true,
-        unique:true, //shortid should be unique
-    },
-    //schema for redirect url
-    redirecturl:{
-        type:String,
-        required:true,
-    },
-    totalclicks:[{timestamp:{type:Number}}],//schema for total clicks with time stamps
-    },
-    {timestamps:true}
-)
-const url=mongoose.model("url",urlschema)//declaring url with schema
+// define the schema for storing url shortening data
+const urlSchema = new mongoose.Schema({
+  // stores the unique identifier for the short url
+  shortId: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  // stores the original url to which the short url redirects
+  redirectUrl: {
+    type: String,
+    required: true
+  },
+  // stores an array of objects, each containing a timestamp when the short url was clicked
+  totalClicks: {
+    type: Array,
+    default: []
+  }
+});
 
-module.exports=url;//exporting url schema
+// export the mongoose model 'url' based on the 'urlschema'
+module.exports = mongoose.model('url', urlSchema);

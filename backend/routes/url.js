@@ -1,8 +1,15 @@
-const express=require('express')
-const {newshort,analyse}=require("../controllers/url")//importing  the functions from conyrollers url.js
-const router=express.Router()//creating router from express module
+const express = require('express');
+const { newshort, analyse, redirect } = require("../controllers/url");
 
-router.post("/api/newshort",newshort)//creating route for posting the new shortid
-router.get("/analytics/:shortId",analyse)//creating route for getting the analysis of total clicks
+const router = express.Router();
 
-module.exports=router;//exporting router
+// route to create a new short URL
+router.post("/api/newshort", newshort);
+
+// route to retrieve analytics for a short URL
+router.get("/analytics/:shortid", analyse);
+
+// route to redirect to the original URL associated with a short URL
+router.get("/:shortid", redirect);
+
+module.exports = router;

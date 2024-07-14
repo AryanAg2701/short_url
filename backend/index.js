@@ -30,5 +30,8 @@ app.get('/:shortId',async(req,res)=>{
     )
     res.redirect(entry.redirecturl)//redirecting to main url
 })
+app.post('/url/api/newshort', urlcontroller.newshort);
+app.use('/api',urlRouter)
+
 app.use('/url',urlroute)//using routes
 app.listen(8001,()=>{console.log(`http://localhost:8001`)})//port
