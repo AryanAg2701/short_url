@@ -10,19 +10,19 @@ async function newshort(req, res) {
     return res.status(400).json({ error: "url not found" });
   }
 
-  // generate a unique short id using shortid library
-  const shortid = shortid();
+  // generate a unique short id using shortId library
+  const shortId = shortid.generate();
 
   try {
-    // create a new document in the 'url' collection with shortid, redirecturl, and an empty array for totalclicks
+    // create a new document in the 'url' collection with shortId, redirecturl, and an empty array for totalclicks
     await url.create({
-      shortid: shortid,
+      shortid: shortId,
       redirecturl: body.url,
       totalclicks: [],
     });
 
     // respond with the generated short id upon successful creation
-    return res.json({ id: shortid });
+    return res.json({ id: shortId });
   } catch (err) {
     // handle errors if document creation fails
     console.error(err);
@@ -32,10 +32,10 @@ async function newshort(req, res) {
 
 // retrieve analytics (total clicks and timestamps) for a given short id
 async function analyse(req, res) {
-  const shortid = req.params.shortid;
+  const shortId = req.params.shortid;
 
   // find the document in the 'url' collection based on the short id
-  const result = await url.findOne({ shortid });
+  const result = await url.findOne({ shortId });
 
   // if no document is found, return a 404 error
   if (!result) {
@@ -48,10 +48,10 @@ async function analyse(req, res) {
 
 // redirect users to the original url associated with a given short id and update analytics
 async function redirect(req, res) {
-  const shortid = req.params.shortid;
+  const shortId = req.params.shortid;
 
   // find the document in the 'url' collection based on the short id
-  const result = await url.findOne({ shortid });
+  const result = await url.findOne({ shortId });
 
   // if no document is found, return a 404 error
   if (!result) {

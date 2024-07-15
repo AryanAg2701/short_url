@@ -4,7 +4,7 @@ const app=express()//declaring app with express
 const url=require('./models/url')//import url schema
 const bodyParser = require('body-parser');//use body parser from json text
 const urlcontroller = require('./controllers/url');
-const urlroute=require('./routes/url')//importing routes from routes url.js
+const urlRouter=require('./routes/url')//importing routes from routes url.js
 const cors=require("cors")//importing cors  for api making
 
 //establishing mongo connection
@@ -33,5 +33,5 @@ app.get('/:shortId',async(req,res)=>{
 app.post('/url/api/newshort', urlcontroller.newshort);
 app.use('/api',urlRouter)
 
-app.use('/url',urlroute)//using routes
+app.use('/url',urlRouter)//using routes
 app.listen(8001,()=>{console.log(`http://localhost:8001`)})//port
